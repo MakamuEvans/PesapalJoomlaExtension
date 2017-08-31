@@ -52,6 +52,7 @@
         <files folder="admin">
             <filename>index.html</filename>
             <filename>donate.php</filename>
+            <filename>config.xml</filename>
             <filename>controller.php</filename>
             <folder>models</folder>
             <folder>sql</folder>

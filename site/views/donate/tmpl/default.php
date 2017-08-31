@@ -22,9 +22,9 @@ vue component will be placed here
 Vue app's template here
 -->
 <template id="vue-template">
-    <div class="row" style="margin: 20px">
+    <div class="row" style="margin: 20px;text-align: center">
         <div class="row">
-            <div class="col-md-6 col-md-offset-3" v-show="stepOne">
+            <div class="col-md-12" v-show="stepOne">
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" v-model="details.first_name" class="form-control">

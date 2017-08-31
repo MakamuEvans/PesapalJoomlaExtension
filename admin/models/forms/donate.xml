@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<form>
+    <fields name="params">
+        <fieldset
+                name="params"
+                label="OPTIONS"
+        >
+            <field
+                    name="consumer_key"
+                    type="text"
+                    label="KEY"
+                    size="40"
+                    class="inputbox"
+                    default=""
+            />
+
+            <field
+                    name="consumer_secret"
+                    type="text"
+                    label="SECRET"
+                    size="40"
+                    class="inputbox"
+                    default=""
+            />
+        </fieldset>
+    </fields>
+</form>

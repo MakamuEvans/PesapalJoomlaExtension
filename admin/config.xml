@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset
+            name="params"
+            label="Configure Donate"
+            description="Obtain your Pesapal consumer key and secret. NB: register using demo.pesapal.com since this component is for testing purposes"
+    >
+        <field
+                name="consumer_key"
+                type="text"
+                label="Consumer key"
+                size="40"
+                class="inputbox"
+                default=""
+        />
+
+        <field
+                name="consumer_secret"
+                type="text"
+                label="Consumer secret"
+                size="40"
+                class="inputbox"
+                default=""
+        />
+    </fieldset>
+</config>

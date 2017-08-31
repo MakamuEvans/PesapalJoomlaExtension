@@ -15,9 +15,10 @@ class DonateModelDonate extends JModelItem{
      * @since version
      */
     public function donate(){
+        $config = JComponentHelper::getParams('com_donate');
         $token = $params = null;
-        $key = '5Mpg2t/uDQqtrLJBfvRkVMaTjwmMZ4fP';
-        $secret= '/44+Joj+qpbDia5weIyaUY16lxU=';
+        $key = $config->get('consumer_key'); // '5Mpg2t/uDQqtrLJBfvRkVMaTjwmMZ4fP';
+        $secret= $config->get('consumer_secret'); //'/44+Joj+qpbDia5weIyaUY16lxU=';
         $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
         $iframelink ="https://demo.pesapal.com/api/PostPesapalDirectOrderV4";
         $amount = $_POST['amount'];
@@ -56,18 +57,34 @@ class DonateModelDonate extends JModelItem{
         $db->setQuery($query);
         $db->execute();
 
+        $this->sendEmail($iframe_src, $email);
         echo $iframe_src;
         JFactory::getApplication()->close();
     }
+
+    public function sendEmail($url,$recipient, $period, $amount){
+        $mailer = JFactory::getMailer();
+        $config = JFactory::getConfig();
+        $sender = array($config->get('mailfrom'),
+            $config->get('fromname'));
+        $mailer->setSender($sender);
+        $mailer->addRecipient($recipient);
+        $body = "Thanks for volunteering to donate to us. Your funds will go along way to ensuring open-source thrives \n Your direct payment url is ".$url." \n Your schedule is ".$period." and amount ".$amount;
+        $mailer->setSubject("Donation");
+        $mailer->isHtml(true);
+        $mailer->setBody($body);
+        $mailer->Send();
+    }
     public function viewProgress($trackingId, $referenceNo){
+        $config = JComponentHelper::getParams('com_donate');
         $token = $params = null;
+        $key = $config->get('consumer_key'); // '5Mpg2t/uDQqtrLJBfvRkVMaTjwmMZ4fP';
+        $secret= $config->get('consumer_secret'); //'/44+Joj+qpbDia5weIyaUY16lxU=';
         $requestUrl = "https://demo.pesapal.com/api/querypaymentstatusbymerchantref";
         if(!empty(trim($trackingId))){
             $requestUrl ="https://demo.pesapal.com/api/querypaymentdetails";
         }
-        //$dconfig = JComponentHelper::getParams('com_pesapal');
-        $key = '5Mpg2t/uDQqtrLJBfvRkVMaTjwmMZ4fP';
-        $secret= '/44+Joj+qpbDia5weIyaUY16lxU=';
+
         $consumer = new OAuthConsumer($key,$secret);
         $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
 
