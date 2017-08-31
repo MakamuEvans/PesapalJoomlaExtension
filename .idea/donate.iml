@@ -14,5 +14,15 @@
         </SOURCES>
       </library>
     </orderEntry>
+    <orderEntry type="module-library">
+      <library name="PHP" type="php">
+        <CLASSES>
+          <root url="file://$USER_HOME$/Downloads/joomla/Joomla_3.7.5-Stable-Full_Package" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$USER_HOME$/Downloads/joomla/Joomla_3.7.5-Stable-Full_Package" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>

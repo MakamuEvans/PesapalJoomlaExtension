@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" version="3.7.5" method="upgrade">
+    <name>COM_DONATE</name>
+    <creationDate>8/31/17</creationDate>
+    <author>elm</author>
+    <authorEmail>makamuevans@gmail.com</authorEmail>
+    <authorUrl>http://makamuevans.co.ke</authorUrl>
+    <copyright>A copyright</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>0.0.1</version>
+    <description>A Donation extension for use with Pesapal API</description>
+
+    <!-- Runs on install -->
+    <install>
+        <sql>
+            <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
+        </sql>
+    </install>
+
+    <!-- Runs on uninstall-->
+    <uninstall>
+        <sql>
+            <file driver="mysql" charset="utf8">
+                sql/uninstall.mysql.utf8.sql
+            </file>
+        </sql>
+    </uninstall>
+
+    <!-- Runs on update -->
+    <update>
+        <schemas>
+            <schemapath type="mysql">sql/updates/mysql</schemapath>
+        </schemas>
+    </update>
+
+    <!-- Front-end files -->
+    <files folder="site">
+        <filename>index.html</filename>
+        <filename>donate.php</filename>
+        <filename>controller.php</filename>
+        <folder>views</folder>
+        <folder>scripts</folder>
+        <folder>models</folder>
+    </files>
+
+    <!-- Back-end files -->
+    <administration>
+        <!-- Menu entries -->
+        <menu link="index.php?option=com_donate">COM_DONATE</menu>
+
+        <!-- Core files -->
+        <files folder="admin">
+            <filename>index.html</filename>
+            <filename>donate.php</filename>
+            <filename>controller.php</filename>
+            <folder>models</folder>
+            <folder>sql</folder>
+            <folder>tables</folder>
+            <folder>views</folder>
+        </files>
+    </administration>
+</extension>
