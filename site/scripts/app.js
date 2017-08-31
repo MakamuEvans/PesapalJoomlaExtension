@@ -15,6 +15,14 @@ Vue.component('donate', {
         donate: function () {
             var inh = this;
             console.log(inh.details);
+            var details = {email: inh.details.email, first_name:inh.details.first_name,last_name:inh.details.last_name,
+            amount:inh.details.amount};
+            $.post(base_url+"index.php?option=com_donate&task=donate", details, function (data) {
+                console.log(data);
+                inh.frameSource = data;
+                inh.stepOne = false;
+                inh.stepTwo = true;
+            })
         }
     }
 });

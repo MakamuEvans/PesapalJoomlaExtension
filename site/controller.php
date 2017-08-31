@@ -12,6 +12,7 @@ class DonateController extends JControllerLegacy{
      * @since version
      */
     public function donate(){
-
+        $model = $this->getModel('donate');
+        $model->donate();
     }
 }
