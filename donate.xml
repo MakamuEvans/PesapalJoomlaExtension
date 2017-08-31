@@ -7,7 +7,7 @@
     <authorUrl>http://makamuevans.co.ke</authorUrl>
     <copyright>A copyright</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <description>A Donation extension for use with Pesapal API</description>
 
     <!-- Runs on install -->

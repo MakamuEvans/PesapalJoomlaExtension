@@ -9,6 +9,6 @@
 class DonateTableDonate extends JTable{
     function __construct(&$db)
     {
-        parent::__construct('#__donate', 'id', $db);
+        parent::__construct('#__donation', 'id', $db);
     }
 }

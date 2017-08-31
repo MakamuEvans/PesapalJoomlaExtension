@@ -13,18 +13,23 @@ defined('_JEXEC') or die("Restricted access");
     <table class="table table-striped table-hover">
         <thead>
         <tr>
-            <th width="1%"><?php echo JText::_('COM_HELLOWORLD_NUM'); ?></th>
-            <th width="2%">
-                <?php echo JHtml::_('grid.checkall'); ?>
+            <th width="1%"><?php echo JText::_('#Num'); ?></th>
+            <th width="30%">
+                <?php echo JText::_('Client Names') ;?>
             </th>
-            <th width="90%">
-                <?php echo JText::_('COM_HELLOWORLD_HELLOWORLDS_NAME') ;?>
+            <th width="20%">
+                <?php echo JText::_('Client Email') ;?>
             </th>
-            <th width="5%">
-                <?php echo JText::_('COM_HELLOWORLD_PUBLISHED'); ?>
+            <th width="10%">
+                <?php echo JText::_('Amount Donated'); ?>
             </th>
-            <th width="2%">
-                <?php echo JText::_('COM_HELLOWORLD_ID'); ?>
+            <th width="13%">
+                <?php echo JText::_('Donation Method'); ?>
+            </th>
+            <th width="13%">
+                <?php echo JText::_('Donation Status'); ?>
+            </th><th width="13%">
+                <?php echo JText::_('Donation Schedule'); ?>
             </th>
         </tr>
         </thead>
@@ -43,18 +48,22 @@ defined('_JEXEC') or die("Restricted access");
                 <tr>
                     <td><?php echo $this->pagination->getRowOffset($i); ?></td>
                     <td>
-                        <?php echo JHtml::_('grid.id', $i, $row->id); ?>
+                        <?php echo $row->first_name. ' , '. $row->last_name; ?>
                     </td>
                     <td>
-                        <a href="<?php echo $link; ?>" title="<?php echo JText::_('COM_HELLOWORLD_EDIT_HELLOWORLD'); ?>">
-                            <?php echo $row->first_name; ?>
-                        </a>
-                    </td>
-                    <td align="center">
-                        <?php echo JHtml::_('jgrid.published', $row->last_name, $i, 'helloworlds.', true, 'cb'); ?>
+                        <?php echo $row->email; ?>
                     </td>
                     <td align="center">
                         <?php echo $row->amount; ?>
+                    </td>
+                    <td align="center">
+                        <?php echo $row->method; ?>
+                    </td>
+                    <td align="center">
+                        <?php echo $row->status; ?>
+                    </td>
+                    <td align="center">
+                        <?php echo $row->period; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

@@ -1,14 +1,14 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: elm
- * Date: 8/31/17
- * Time: 10:44 AM
+ * @package     ${NAMESPACE}
+ * @subpackage
+ *
+ * @copyright   A copyright
+ * @license     A "Slug" license name e.g. GPL2
  */
 defined('_JEXEC') or die('Restricted access');
 
-class DonateViewDonate extends JViewLegacy{
-
+class DonateViewCompleted extends JViewLegacy{
     function display($tpl = null)
     {
         $document = JFactory::getDocument();
