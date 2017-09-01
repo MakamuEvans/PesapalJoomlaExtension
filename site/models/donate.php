@@ -7,7 +7,7 @@
  */
 defined('_JEXEC') or die('Restricted access');
 include_once ('OAuth.php');
-include_once ('xmlhttprequest.php');
+/*include_once ('xmlhttprequest.php');*/
 class DonateModelDonate extends JModelItem{
     /**
      *Model to process donation using Pesapal OAuth
@@ -29,7 +29,7 @@ class DonateModelDonate extends JModelItem{
         $last_name = $_POST['last_name'];
         $email =  $_POST['email'];
         $period =  $_POST['period'];
-        $currency =  'KES';
+        $currency =  $_POST['currency'];
 
         $callback_url =JURI::root().'index.php?option=com_donate&view=completed';
 
@@ -38,12 +38,12 @@ class DonateModelDonate extends JModelItem{
 
         $consumer = new OAuthConsumer($key, $secret);
 
-
         $iframe_src = OAuthRequest::from_consumer_and_token($consumer, $token, "GET", $iframelink, $params);
         $iframe_src->set_parameter("oauth_callback", $callback_url);
         $iframe_src->set_parameter("pesapal_request_data", $post_xml);
         $iframe_src->sign_request($signature_method, $consumer, $token);
 
+        //save details to DB
         $db = JFactory::getDbo();
         $query = $db->getQuery(true);
         $columns = array('first_name', 'last_name', 'email','amount','period',
@@ -57,11 +57,23 @@ class DonateModelDonate extends JModelItem{
         $db->setQuery($query);
         $db->execute();
 
-        $this->sendEmail($iframe_src, $email);
+        //send email to client
+        $this->sendEmail($iframe_src, $email, $period, $amount);
+
         echo $iframe_src;
         JFactory::getApplication()->close();
     }
 
+    /**
+     * Method to send an email to the client with his/her payment details and period.
+     *
+     * @param $url
+     * @param $recipient
+     * @param $period
+     * @param $amount
+     *
+     * @since version
+     */
     public function sendEmail($url,$recipient, $period, $amount){
         $mailer = JFactory::getMailer();
         $config = JFactory::getConfig();
@@ -75,6 +87,17 @@ class DonateModelDonate extends JModelItem{
         $mailer->setBody($body);
         $mailer->Send();
     }
+
+    /**
+     * Method to get payment status from Pesapal servers
+     *
+     * @param $trackingId
+     * @param $referenceNo
+     *
+     * @return mixed
+     *
+     * @since version
+     */
     public function viewProgress($trackingId, $referenceNo){
         $config = JComponentHelper::getParams('com_donate');
         $token = $params = null;
@@ -88,14 +111,12 @@ class DonateModelDonate extends JModelItem{
         $consumer = new OAuthConsumer($key,$secret);
         $signature_method = new OAuthSignatureMethod_HMAC_SHA1();
 
-
         $request_status = OAuthRequest::from_consumer_and_token($consumer, $token,"GET", $requestUrl, $params);
         $request_status->set_parameter("pesapal_merchant_reference", $referenceNo);
         if(!empty(trim($trackingId))) {
             $request_status->set_parameter("pesapal_transaction_tracking_id", $trackingId);
         }
         $request_status->sign_request($signature_method, $consumer, $token);
-
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $request_status);
@@ -110,7 +131,6 @@ class DonateModelDonate extends JModelItem{
             curl_setopt ($ch, CURLOPT_PROXYTYPE, CURLPROXY_HTTP);
             curl_setopt ($ch, CURLOPT_PROXY, CURL_PROXY_SERVER_DETAILS);
         }
-
         $response = curl_exec($ch);
 
         $header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);

@@ -22,9 +22,19 @@ vue component will be placed here
 Vue app's template here
 -->
 <template id="vue-template">
-    <div class="row" style="margin: 20px;text-align: center">
-        <div class="row">
-            <div class="col-md-12" v-show="stepOne">
+    <div class="row" style="margin: 20px;">
+        <div class="row" style="margin-left: 30px">
+            <div class="row">
+                <h3>Joomla extension for Pesapal</h3>
+                <h6>Fill below form to get started</h6>
+                <div v-show="blank" class="alert alert-warning">
+                    <h6>No field(s) should be left blank</h6>
+                </div>
+                <div v-show="email" class="alert alert-warning">
+                    <h6>Ensure you input a correct email</h6>
+                </div>
+            </div>
+            <div class="col-md-8" v-show="stepOne">
                 <div class="form-group">
                     <label>First Name</label>
                     <input type="text" v-model="details.first_name" class="form-control">
@@ -35,7 +45,15 @@ Vue app's template here
                 </div>
                 <div class="form-group">
                     <label>Email Address</label>
-                    <input type="text" v-model="details.email" class="form-control">
+                    <input type="email" v-model="details.email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Currency</label>
+                    <select class="form-control" v-model="details.currency">
+                        <option selected >KES</option>
+                        <option>USD</option>
+                        <option>EUR</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Amount</label>
@@ -43,10 +61,14 @@ Vue app's template here
                 </div>
                 <div class="form-group">
                     <label>Period</label>
-                    <input type="text" v-model="details.period" class="form-control">
+                    <select class="form-control" v-model="details.period">
+                        <option selected >One Off</option>
+                        <option>Monthly</option>
+                        <option>Annually</option>
+                    </select>
                 </div>
                 <div class="form-group">
-                    <button class="form-control btn btn-primary" @click="donate">Donate</button>
+                    <button class="form-control btn btn-primary" @click="validate">Donate</button>
                 </div>
             </div>
         </div>

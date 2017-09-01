@@ -17,5 +17,8 @@ defined('_JEXEC') or die('Restricted access');
     <completed></completed>
 </div>
 <template id="completed-template">
-    <h1>Completed</h1>
+    <div class="row" style="margin-left: 30px">
+        <h2>Thank you for your Donation</h2>
+        Donation Status: <strong>{{status}}</strong>
+    </div>
 </template>

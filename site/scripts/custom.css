@@ -1,0 +1,15 @@
+label{
+    text-align: left !important;
+    font-weight: bold !important;
+}
+input{
+    width: 70% !important;
+}
+select{
+    text-align: left !important;
+}
+iframe{
+    background: url("Spin.gif") no-repeat;
+    text-align: center;
+    border: none;
+}
