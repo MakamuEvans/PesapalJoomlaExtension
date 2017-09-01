@@ -16,6 +16,11 @@ class DonateController extends JControllerLegacy{
         $model->donate();
     }
 
+    /**
+     *Controller method to check status of a payment from Pesapal Servers
+     *
+     * @since version
+     */
     public function status(){
         $reference_no = $_POST['pesapal_merchant_reference'];
         $tracking_id = $_POST['pesapal_transaction_tracking_id'];
